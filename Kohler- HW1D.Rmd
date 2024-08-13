@@ -1,6 +1,6 @@
 ---
 title: "Kohler - H51D"
-author: "Allison Kohler"
+author: "A. Kohler"
 date: "2024-08-11"
 output: html_document
 ---
@@ -35,3 +35,7 @@ ggplot(house_reshaped, aes(x = year, y = value, color = measure)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+# Commenting on the plot
+# Maybe I'm doing it wrong, but this is not a good graph to represent this information.
+# It is too compressed due to the number of states.
+# ChatGPT assisted because I didn't find examples for Rmd in the lecture.
