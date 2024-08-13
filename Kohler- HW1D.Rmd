@@ -1,0 +1,37 @@
+---
+title: "Kohler - H51D"
+author: "Allison Kohler"
+date: "2024-08-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Load the dataset
+load('/Users/akk/Library/CloudStorage/GoogleDrive-kateley@umich.edu/.shortcut-targets-by-id/1ehWwunuAo7CE1Vk2JYkUnQMmxh5pph3C/DATA/house_prices.rda')
+
+# Extract the year from the date column
+house_prices$year <- as.numeric(format(as.Date(house_prices$date), "%Y"))
+
+# Reshape the data using gather to create 'measure' and 'value' columns
+house_reshaped <- house_prices %>%
+  gather(key = "measure", value = "value", house_price_index, unemploy_perc, -year, -state)
+
+# Plot both house_price_index and unemploy_perc together for each state
+ggplot(house_reshaped, aes(x = year, y = value, color = measure)) +
+  geom_line() +
+  facet_wrap(~ state) +
+  scale_x_continuous(breaks = c(1980, 2000, 2020), labels = c("'80", "'00", "'20")) +
+  labs(title = "House Price Index and Unemployment Percentage Trends by State",
+       x = "Year",
+       y = "Value",
+       color = "Measure") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
